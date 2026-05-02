@@ -1,0 +1,126 @@
+<!-- ===== إضافات احترافية DALTON SYSTEM (بدون تقديم) ===== -->
+
+<style>
+.smoke {
+    position: fixed;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: url('https://i.ibb.co/7QpKsCX/smoke.png');
+    opacity: 0.12;
+    animation: smokeMove 80s linear infinite;
+    z-index: -2;
+}
+
+@keyframes smokeMove {
+    from { transform: translate(0,0); }
+    to { transform: translate(-600px,-600px); }
+}
+
+.home-btn {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: var(--p);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 9999;
+    box-shadow: 0 0 20px var(--p);
+    font-size: 22px;
+}
+
+.clock-box {
+    position: fixed;
+    bottom: 15px;
+    left: 15px;
+    background: rgba(0,0,0,0.6);
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 16px;
+    z-index: 999;
+}
+
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--p);
+    color: black;
+    padding: 10px 25px;
+    border-radius: 10px;
+    display: none;
+    z-index: 9999;
+    font-weight: bold;
+}
+
+.id-card {
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.id-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px var(--p);
+}
+</style>
+
+<!-- عناصر -->
+<div class="smoke"></div>
+<div class="clock-box">⏰ <span id="clock"></span></div>
+<div id="toast" class="toast">تم التنفيذ ✅</div>
+
+<script>
+
+/* تحويل زر الرجوع إلى بيت */
+function convertBackButtons() {
+    document.querySelectorAll('.floating-back').forEach(btn=>{
+        btn.outerHTML = `<div class="home-btn" onclick="showPage('home')">🏠</div>`;
+    });
+}
+
+/* روابط الديسكورد للأعضاء */
+function setupCards(){
+    const links = [
+        "https://discord.com/users/ID1",
+        "https://discord.com/users/ID2",
+        "https://discord.com/users/ID3",
+        "https://discord.com/users/ID4",
+        "https://discord.com/users/ID5"
+    ];
+
+    document.querySelectorAll('.id-card').forEach((card, i)=>{
+        card.onclick = ()=> window.open(links[i] || links[0], '_blank');
+    });
+}
+
+/* toast */
+function showToast(msg){
+    let t = document.getElementById('toast');
+    if(!t) return;
+    t.innerText = msg;
+    t.style.display = 'block';
+    setTimeout(()=> t.style.display='none',2000);
+}
+
+/* ساعة */
+setInterval(()=>{
+    let el = document.getElementById('clock');
+    if(el) el.innerText = new Date().toLocaleTimeString();
+},1000);
+
+/* تشغيل تلقائي */
+window.onload = ()=>{
+    convertBackButtons();
+    setupCards();
+};
+
+</script>
+
+<!-- ===== نهاية الإضافة ===== -->
